@@ -28,8 +28,8 @@ for (var i = 0; i < 4; i++) {
     TOKEN += (Math.pow(16,8)*Math.random()).toString(16);
 }
 
-exports.parse = function (s, env) {
-    var mapped = parse(s, env);
+exports.parse = function (s, env, ignoreOperators) {
+    var mapped = parse(s, env, ignoreOperators);
     if (typeof env !== 'function') return mapped;
     return mapped.reduce(function (acc, s) {
         if (typeof s === 'object') return acc.concat(s);
@@ -44,7 +44,7 @@ exports.parse = function (s, env) {
     }, []);
 };
 
-function parse (s, env) {
+function parse (s, env, ignoreOperators) {
     var chunker = new RegExp([
         '(' + CONTROL + ')', // control chars
         '(' + BAREWORD + '|' + SINGLE_QUOTE + '|' + DOUBLE_QUOTE + ')*'
@@ -67,7 +67,7 @@ function parse (s, env) {
                 .replace(/\\([ "'\\$`(){}!#&*|])/g, '$1')
             ;
         }
-        else if (RegExp('^' + CONTROL + '$').test(s)) {
+        else if (!ignoreOperators && RegExp('^' + CONTROL + '$').test(s)) {
             return { op: s };
         }
         else return s.replace(
