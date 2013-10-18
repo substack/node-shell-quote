@@ -10,7 +10,7 @@ test('single operators', function (t) {
     t.same(parse('echo zing &'), [ 'echo', 'zing', { op: '&' } ]);
     t.same(parse('echo zing&'), [ 'echo', 'zing', { op: '&' } ]);
     t.same(parse('echo zing\\&'), [ 'echo', 'zing&' ]);
-    t.same(parse('echo "zing\\&"'), [ 'echo', 'zing&' ]);
+    t.same(parse('echo "zing\\&"'), [ 'echo', 'zing\\&' ]);
     
     t.same(parse('beep;boop'), [ 'beep', { op: ';' }, 'boop' ]);
     t.same(parse('(beep;boop)'), [
