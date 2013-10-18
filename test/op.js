@@ -55,3 +55,13 @@ test('double operators', function (t) {
     
     t.end();
 });
+
+test('glob patterns', function (t) {
+    t.same(
+        parse('tap test/*.test.js'),
+        [ 'tap', { op: 'glob', pattern: 'test/*.test.js' } ]
+    );
+
+    t.same(parse('tap "test/*.test.js"'), ['tap', 'test/*.test.js']);
+    t.end();
+})
