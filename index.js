@@ -62,14 +62,13 @@ function parse (s, env) {
         //
         //  1. inside single quotes, all characters are printed literally.
         //  2. inside double quotes, all characters are printed literally
-        //     except variables prefixed by '$' and double quotes prefixed by
-        //     a backslash.
-        //  3. outside of any quotes, backslashes are not printed unless they
-        //     are escaped.
+        //     except variables prefixed by '$' and backslashes followed by
+        //     either a double quote or another backslash.
+        //  3. outside of any quotes, backslashes are treated as escape
+        //     characters and not printed (unless they are themselves escaped)
         //  4. quote context can switch mid-token if there is no whitespace
         //     between the two quote contexts (e.g. all'one'"token" parses as
         //     "allonetoken")
-
         var SQ = "'";
         var DQ = '"';
         var BS = '\\';
