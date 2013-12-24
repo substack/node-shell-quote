@@ -24,6 +24,19 @@
         "quote",
         "parse"
     ],
+    "testling": {
+        "files": "test/*.js",
+        "browsers": [
+            "ie/6..latest",
+            "firefox/3.5", "firefox/15..latest", "firefox/nightly",
+            "chrome/25..latest", "chrome/canary",
+            "opera/10..latest", "opera/next",
+            "safari/5.1..latest",
+            "ipad/6.0..latest",
+            "iphone/6.0..latest",
+            "android-browser/4.2..latest"
+        ]
+    },
     "author" : {
         "name" : "James Halliday",
         "email" : "mail@substack.net",
