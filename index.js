@@ -15,7 +15,7 @@ exports.quote = function (xs) {
             return '"' + s.replace(/(["\\$`(){}!#&*|])/g, '\\$1') + '"';
         }
         else {
-            return s.replace(/([\\$`(){}!#&*|])/g, '\\$1');
+            return s.toString().replace(/([\\$`(){}!#&*|])/g, '\\$1');
         }
     }).join(' ');
 };
