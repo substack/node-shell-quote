@@ -15,7 +15,7 @@ test('quote', function (t) {
     t.equal(quote(["a\nb"]), "'a\nb'");
     t.equal(quote([' #(){}*|][!']), "' #(){}*|][!'");
     t.equal(quote(["'#(){}*|][!"]), '"\'#(){}*|][\\!"');
-    t.equal(quote(["X#(){}*|][!"]), "X\\#\\(\\){}\\*\\|][\\!");
+    t.equal(quote(["X#(){}*|][!"]), "X\\#\\(\\)\\{\\}\\*\\|][\\!");
     t.equal(quote(["a\n#\nb"]), "'a\n#\nb'");
     t.equal(quote([ 'a', 1, true, false ]), 'a 1 true false');
     t.equal(quote([ 'a', 1, null, undefined ]), 'a 1 null undefined');
