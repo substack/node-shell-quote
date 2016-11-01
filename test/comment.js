@@ -2,7 +2,7 @@ var test = require('tape');
 var parse = require('../').parse;
 
 test('comment', function (t) {
-    t.same(parse('beep#boop'), [ 'beep', { comment: 'boop' } ]);
+    t.same(parse('beep#boop'), [ 'beep#boop' ]);
     t.same(parse('beep #boop'), [ 'beep', { comment: 'boop' } ]);
     t.same(parse('beep # boop'), [ 'beep', { comment: 'boop' } ]);
     t.same(parse('beep # > boop'), [ 'beep', { comment: '> boop' } ]);

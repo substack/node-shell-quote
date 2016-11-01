@@ -15,7 +15,7 @@ exports.quote = function (xs) {
             return '"' + s.replace(/(["\\$`!])/g, '\\$1') + '"';
         }
         else {
-            return String(s).replace(/([#!"$&'()*,:;<=>?@\[\\\]^`{|}])/g, '\\$1'); 
+            return String(s).replace(/([#!"$&'()*,:;<=>?@\[\\\]^`{|}])/g, '\\$1');
         }
     }).join(' ');
 };
@@ -63,6 +63,10 @@ function parse (s, env, opts) {
     return map(match, function (s, j) {
         if (commented) {
             return;
+        }
+        if (s.charAt(0) === '#') {
+            commented = true;
+            return { comment: s.substr(1) + match.slice(j+1).join(' ') };
         }
         if (RegExp('^' + CONTROL + '$').test(s)) {
             return { op: s };
@@ -125,13 +129,6 @@ function parse (s, env, opts) {
             }
             else if (RegExp('^' + CONTROL + '$').test(c)) {
                 return { op: s };
-            }
-            else if (RegExp('^#$').test(c)) {
-                commented = true;
-                if (out.length){
-                    return [out, { comment: s.slice(i+1) + match.slice(j+1).join(' ') }];
-                }
-                return [{ comment: s.slice(i+1) + match.slice(j+1).join(' ') }];
             }
             else if (c === BS) {
                 esc = true;
