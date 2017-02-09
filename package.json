@@ -4,10 +4,34 @@
   "description": "quote and parse shell commands",
   "main": "index.js",
   "devDependencies": {
+    "eslint": "^2.8.0",
     "tape": "~2.3.0"
   },
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "lint": "eslint index.js test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended"
+    ],
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "semi": 2,
+      "indent": 2,
+      "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
+      "keyword-spacing": [2, {
+        "before": true,
+        "after": true,
+        "overrides": {
+          "return": { "after": true },
+          "throw": { "after": true },
+          "case": { "after": true }
+        }
+      }]
+    }
   },
   "repository": {
     "type": "git",
