@@ -87,11 +87,38 @@ function parse (s, env, opts) {
         var esc = false;
         var out = '';
         var isGlob = false;
+        var isDSString = false;
 
         for (var i = 0, len = s.length; i < len; i++) {
             var c = s.charAt(i);
             isGlob = isGlob || (!quote && (c === '*' || c === '?'));
-            if (esc) {
+            if (isDSString) {
+                if (c === BS) {
+                    i += 1;
+                    c = s.charAt(i);
+                    if (c === BS || c === quote) {
+                        out += c;
+                    }
+                    else {
+                        if (quote === SQ && c === DQ) {
+                            out += c;
+                        }
+                        else {
+                            out += BS + c;
+                        }
+                    }
+                }
+                else {
+                    if (c === quote) {
+                        quote = false;
+                        isDSString = false;
+                    }
+                    else {
+                        out += c;
+                    }
+                }
+            }
+            else if (esc) {
                 out += c;
                 esc = false;
             }
@@ -165,6 +192,10 @@ function parse (s, env, opts) {
             else if (/[*@#?$!_\-]/.test(s.charAt(i))) {
                 varname = s.charAt(i);
                 i += 1;
+            }
+            else if (s.charAt(i) === SQ || s.charAt(i) === DQ) {
+                isDSString = true;
+                quote = s.charAt(i);
             }
             else {
                 varend = s.substr(i).match(/[^\w\d_]/);
