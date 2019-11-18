@@ -20,7 +20,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: export NPM_CONFIG_STRICT_SSL=false
+    - name: Disable strict SSL checks
+      uses: allenevans/set-env@v1.0.0
+      with:
+        NPM_CONFIG_STRICT_SSL: 'false'
       if: matrix.node-version == '0.8'
     - name: Upgrade npm to latest available version
       run: |
