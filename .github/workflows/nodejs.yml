@@ -16,19 +16,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install Node.js ${{matrix.node-version}}
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{matrix.node-version}}
-      if: matrix.os == 'windows-latest'
-    - name: Install Node.js ${{matrix.node-version}} with nvm
-      uses: dcodeIO/setup-node-nvm@v2.0.0
-      with:
-        node-version: ${{matrix.node-version}}
-      if: matrix.os != 'windows-latest'
+        node-version: ${{ matrix.node-version }}
     - run: export NPM_CONFIG_STRICT_SSL=false
       if: matrix.node-version == '0.8'
-    - run: nvm install-latest-npm
+    - name: Upgrade npm to latest available version
+      run: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+        nvm install-latest-npm
       if: matrix.os != 'windows-latest'
     - run: npm install
     - run: npm test
