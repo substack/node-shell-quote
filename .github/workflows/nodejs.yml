@@ -20,5 +20,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: export NPM_CONFIG_STRICT_SSL=false
+      if: matrix.node-version == '0.8'
+    - run: nvm install-latest-npm
+      if: matrix.os != 'windows-latest'
     - run: npm install
     - run: npm test
