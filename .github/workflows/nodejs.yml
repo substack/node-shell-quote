@@ -25,6 +25,7 @@ jobs:
     - name: Upgrade npm to latest available version
       run: |
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+        source $HOME/.nvm/nvm.sh
         nvm install-latest-npm
       if: matrix.os != 'windows-latest'
     - run: npm install
