@@ -46,7 +46,7 @@ output
 [ 'beep', '--boop=/home/robot' ]
 ```
 
-## parse with custom escape charcter
+## parse with custom escape character
 
 ``` js
 var parse = require('shell-quote').parse;
