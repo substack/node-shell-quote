@@ -78,7 +78,7 @@ function parse (s, env, opts) {
         //     "allonetoken")
         var SQ = "'";
         var DQ = '"';
-        var DS = '$';
+        var DS = opts.env === undefined ? '$' : opts.env;
         var BS = opts.escape || '\\';
         var quote = false;
         var esc = false;
