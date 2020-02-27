@@ -9,6 +9,9 @@ exports.quote = function (xs) {
         else if (/["'\s]/.test(s)) {
             return '"' + s.replace(/(["\\$`!])/g, '\\$1') + '"';
         }
+        else if (s.length > 1 && /[\;\(\)\|\<\>]/.test(s)) {
+          return '"' + s + '"';
+        }
         else {
             return String(s).replace(/([A-z]:)?([#!"$&'()*,:;<=>?@\[\\\]^`{|}])/g, '$1\\$2');
         }
