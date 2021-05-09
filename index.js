@@ -3,14 +3,11 @@ exports.quote = function (xs) {
         if (s && typeof s === 'object') {
             return s.op.replace(/(.)/g, '\\$1');
         }
-        else if (/["\s]/.test(s) && !/'/.test(s)) {
-            return "'" + s.replace(/(['\\])/g, '\\$1') + "'";
-        }
-        else if (/["'\s]/.test(s)) {
-            return '"' + s.replace(/(["\\$`!])/g, '\\$1') + '"';
+        else if (/^[a-zA-Z0-9_-]+$/.test(s)) {
+            return String(s);
         }
         else {
-            return String(s).replace(/([A-z]:)?([#!"$&'()*,:;<=>?@\[\\\]^`{|}])/g, '$1\\$2');
+            return "'" + String(s).replace(/'/, "'\\''") + "'"
         }
     }).join(' ');
 };
